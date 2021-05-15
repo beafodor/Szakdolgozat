@@ -1,37 +1,26 @@
-\documentclass[12pt, twoside]{report}
+\documentclass[12pt]{report}
 \usepackage{babel}
-\usepackage[a4paper,width=150mm,top=25mm,bottom=25mm]{geometry}
+\usepackage[a4paper,left=35mm,right=25mm,top=25mm,bottom=25mm]{geometry}
 \sloppy 
 \usepackage{graphicx}
 \graphicspath{ {assets/} }
 \usepackage{titlesec}
+\usepackage{mathptmx}
 
-\titleformat{\chapter}{\normalfont\huge}{\thechapter.}{20pt}{\huge}
-
-\title{
-	{\large \textbf {Szegedi Tudományegyetem}}\\
-	{\large \textbf {Informatikai Intézet}}\\
-	\textbf {Keresztplatformos alkalmazás fejlesztése nagy fájlok kezelésére felhőbe}\\
-	{\large (Development of a cross-platform application for handling large files in the cloud)}\\
-	{Szakdolgozat}\\
-	{\small Készítette:}\\
-	\textbf {\large Fodor Beáta}\\
-	{\small Témavezető:}\\
-	\textbf {\large Dr. Bilicki Vilmos}\\
-	{Szeged}\\
-	{2021}\\
-}
-\date{}
+\titleformat{\chapter}{\normalfont\huge}{\thechapter.}{18pt}{\huge}
 
 \begin{document}
 
-\maketitle
-\newpage
+\input{title.tex}
 
 \chapter*{Feladatkiírás}
 Szakdolgozatom célja egy felhő alapú, általános fájlkezelő mobilalkalmazás létrehozása volt, amely képes kezelni a nagyméretű fájlokat, emellett a feltöltés és a már feltöltött fájlok elérése valós időben történjen. Mindezt, elsősorban Android és iOS pluginok, továbbá a Firebase SDK használatával.
 
+\begingroup
+\renewcommand{\cleardoublepage}{}
+\renewcommand{\clearpage}{}
 \chapter*{Tartalmi összefoglaló}
+\endgroup
 
 
 \chapter*{Tartalomjegyzék}
@@ -112,11 +101,7 @@ Piackutatásom során a fent említett alkalmazások mellett több, kisebb, kev�
 \\
 \\
 \\
-\\
-\\
-\\
-\\
-Az általam fejlesztett alkalmazás használhatóságát széleskörű, de én leginkább a személyes fájlok felhőben való tárolásában és azok saját eszközök közti mozgatásában látom. Emellett a szoftver kisebb módosításokkal akár, cégen belüli vagy munkacsoportok közti adatmozgatás számára is tökéletes lehet, mivel a módosítások valós időben megjelennek minden felhasználó számára, továbbá az alkalmazás futtatásához nem szükséges speciális eszköz, és nincsen kifejezetten platformhoz kötve. Bármelyik ma használatos okos kommunikációs eszközön futtatható, vagy akármelyik népszerű böngészőből megnyitható a web applikáció, a funkcionalitás nem változik, csak alkalmazkodik.
+Az általam fejlesztett alkalmazás használhatóságát széleskörű, de én leginkább a személyes fájlok felhőben való tárolásában és azok saját eszközök közti mozgatásában látom. Emellett a szoftver kisebb módosításokkal akár, cégen belüli vagy munkacsoportok közti adatmozgatás számára is tökéletes lehet, mivel a módosítások valós időben megjelennek minden felhasználó számára, továbbá az alkalmazás futtatásához nem szükséges speciális eszköz, és nincsen kifejezetten platformhoz kötve. Bármelyik ma használatos okos kommunikációs eszközön futtatható, vagy akármelyik népszerű böngészőből megnyitható a web applikáció, a funkcionalitás nem változik, csak alkalmazkodik.\newpage
 
 \section{Az alkalmazás kezelése}
 \subsection{Használati összefoglaló}
@@ -140,24 +125,37 @@ A regisztráció során, az oldalon megjelenő beviteli mezőkben 3 fontos adato
 
 \subsection{Felhasználó felhő tárhelye}
 Sikeres bejelentkezést követően az alkalmazás átirányít minket a tárhelyünket megjelenítő, „Files” oldalra. Itt a már feltöltött fájljainkat és létrehozott mappáinkat tudjuk megtekinteni és interakcióba lépni velük. A tárhelyben lévő mappák mindig a feltöltött fájlok előtt, a lista elején jelennek meg, így megkönnyítve a továbbnavigálást. Egy mappára kattintva a tárhelyünk elemeit tartalmazó lista frissül, a benne lévő elemek a kiválasztott mappa által tartalmazott fájlok és további mappák. A mappák közti visszafelé navigálást a lista elején megjelenő „..” elemmel vihetjük véghez. A mappáinkat továbbá tudjuk törölni, mellyel az összes benne található fájl és almappa is törlődik a tárhelyünkről. A feltöltött fájlokkal a felhasználó, a tárhelyből való eltávolítás mellett, más funkciókat is végrehajthat. Az elemre való kattintással a feltöltött fájl, az eszköz böngészőjének segítségével, megtekinthető. Az elemeket balra húzva jelennek meg a további funkciók. A megosztás gomb megnyomásával a megtekintéshez is használt, a fájlra vezető link másolásra kerül az eszköz vágólapjára, a letöltésre kattintva pedig a lokális tárhelybe menthetjük a kiválasztott elemet. A listában lévő elemeken történő jobbra húzással pedig a már említett törlés funkciót érhetjük el.
-\\
-\\
-\\
+
+\begin{center}
+	\includegraphics[width=50mm,scale=0.5,]{files.png}
+	\includegraphics[width=50mm,scale=0.5,]{createFolder.png}
+\end{center}
+
 Szintén ezen az oldalon tudunk bővíteni a tárhely tartalmát is. Mobil eszközön az oldal bal alsó sarkában megjelenő, úgynevezett „floating action button” (későbbiekben: „fab”) megnyomásával az applikáció két lehetőséget kínál fel a felhasználónak. Létre tud hozni új mappát és feltölthet új fájlokat. Új mappát létrehozni, a leendő mappa nevének megadásával lehet, a feltöltésre kattintva pedig az eszköz lokális tárhelye nyílik meg, ahol a feltölteni kívánt elemre kattintva az el is indul.
-\\
-\\
-\\
+
+\begin{center}
+	\includegraphics[width=40mm,scale=0.5,]{upload.png}
+\end{center}
+
 A szoftver webes alkalmazásának kinézet itt különbözik leginkább a mobil eszközökön futó natív alkalmazásoktól. Itt a „fab” helyett a felhasználó a két opció közül választhat. A kijelző jobb oldalán lévő, szaggatott vonallal körülhatárolt, úgynevezett „DropZone” mezőbe húzza be a feltölteni kívánt fájlt, vagy a „Fájl kiválasztása” gombra kattintva kiválasztja azt. Itt lehetősége van a felhasználónak egyszerre több elem feltöltését is kezdeményeznie. A mappa létrehozás ebben az esetben az elemeket listázó, a kijelző bal oldalán elhelyezkedő rész, bal felső sarkában megtalálható mappa ikonra kattintva érhető el. Platformtól eltekintve, mindkét funkció végrehajtása során a tárhelybe felkerülő új elem elérési útvonala az éppen aktuálisan kilistázott mappa lesz.
+\begin{center}
+	\includegraphics[width=150mm,scale=0.5,]{files_web.png}
+\end{center}
 
 \subsection{Felhasználókeresése}
 A „search” oldalon az alkalmazás további regisztrált felhasználói között böngészhetünk. Ezt megtehetjük név- vagy email alapú kereséssel, de a kettőt kombinálni is lehet. A listázott elemek valamelyikére kattintva az ahhoz tartozó felhasználói profilra navigál át minket az alkalmazás. Itt, ha az adott felhasználó profilja nem privát, akkor a neve és email címe mellett a feltöltött fájljai is megtekinthetővé válnak. Ezeket a fájlokat, ahogyan a saját tárhelyünkben, úgy itt is megoszthatjuk vagy letölthetjük. Ha az adott profil, amit meg szeretnénk tekinteni mégis privát, akkor emailben kérhetjük a tulajdonosát ennek átállítására. Lehetőség van továbbá a felhasználói profilok megosztására is, de megtekinteni őket csak bejelentkezés után lehet.
 
 \begin{center}
 	\includegraphics[width=50mm,scale=0.5,]{search.png}
+	\includegraphics[width=50mm,scale=0.5,]{profile_public.png}
 \end{center}
 
 \subsection{Profil menedzsment}
 A profil oldalon a felhasználó a saját fiókját tudja kezelni. Pár tájékoztató jellegű információ mellett a fiókhoz tartozó profilképét tudja beállítani vagy frissíteni. Megváltoztathatja a felhasználónevét vagy a bejelentkezéshez szükséges jelszavát, továbbá a profilja láthatóságát is átállíthatja. A láthatóság minden új fiók esetében automatikusan privát, ezt itt a felhasználó maga tudja átállítani, ha láthatóvá szeretné tenni a feltöltött dokumentumait más regisztrált személyek számára. Emellett lehetőség van a fiók törlésére is, mellyel minden feltöltött fájl is törlésre kerül.
+
+\begin{center}
+	\includegraphics[width=40mm,scale=0.5,]{profile.png}
+\end{center}
 
 \section{Szerkezeti felépítés}
 Az Angular keretrendszer egyik fő előnye, hogy szerkezeti sajátosságából adódóan, az üzleti logikát és a kinézetért felelős kódrészleteket külön lehet választani, amivel struktúráltabb forráskódot kapunk. A keretrendszer alapjai a modulok és azok komponensei, szolgáltatásai, de lehetőséget nyújt saját direktívák, interfészek és úgynevezett csövek létrehozására is.\\
@@ -248,11 +246,20 @@ Ezekben a szolgáltatásokban lettek megvalósítva az alkalmazás lényeges fun
 
 \subsection{Alkalmazáson belüli navigáció - Routing}
 Az Angular keretrendszert használó alkalmazások úgynevezett „Single Page Application”-ök (SPA). Esetükben a navigáció során nem töltődnek be új fájlok, csak az alkalmazás indulásakor betöltött egyetlen fájljának tartalma változik. Ezt a moduloknál is említett AppRoutingModule valósítja meg.\\
-Az AppRoutingModule-ban definiálva van az összes oldal modulja és a hozzájuk tartozó elérési útvonalak (url-ek) is. Ezáltal, amikor egy oldalra navigálunk, akkor a navigáció során a céloldal url-je alapján az AppRoutingModule betölti a hozzá tartozó oldal modulját, ami tartalmazza a kinézetért felelős html és a funkciók megvalósításáért felelős fájlokat. Az alábbi ábrán az általam készített alkalmazás routing-ját szemléltető ábrája látható.\\
-\\
-\\
-\\
-Az alkalmazás indításakor minden esetben a gyökér elérési útvonalhoz tartozó oldal modulja jelenik meg. Ez a ClouDocs alkalmazásban a HomePageModul. A különböző útvonalakhoz rendelhetünk akár úgynevezett „guardokat” is, melyek megakadályozzák az illetéktelenek hozzáférését bizonyos oldalahoz. Ebben az alkalmazásban a FilePageModule, a SearchPageModule és a ProfilePageModule van ilyen módon védve. Az AuthGuard osztály definiál egy szabályt, ami „false” értékkel tér vissza, ha a lokális tárhelyben nem talál bejelentkezett felhasználót, így megtagadva a nem-bejelentkezett személytől ezen oldalak megtekintését. A ClouDocs-ban a navigálást a minden oldalon megjelenő SidebarComponent oldalsó navigációs menüvel valósíthatja meg a felhasználó. Ennek tartalma dinamikusan változik a be- és kijelentkezés során. Ezzel is elősegítve a privát oldalak védelmét. Ebben az alkalmazásban nincsenek összetett url címek. Egyedül egy másik felhasználó profiljának megtekintésekor jön létre egy egyszeresen összetett elérési útvonal, ahol „/users” után a megtekintett felhasználó saját id-ja szerepe. Ennek az útvonalnak a segítségével tudja az alkalmazás a megfelelő felhasználói adatokat betölteni.
+Az AppRoutingModule-ban definiálva van az összes oldal modulja és a hozzájuk tartozó elérési útvonalak (url-ek) is. Ezáltal, amikor egy oldalra navigálunk, akkor a navigáció során a céloldal url-je alapján az AppRoutingModule betölti a hozzá tartozó oldal modulját, ami tartalmazza a kinézetért felelős html és a funkciók megvalósításáért felelős fájlokat. Az alábbi ábrán az általam készített alkalmazás routing-ját szemléltető ábrája látható.
+
+\begin{center}
+	\includegraphics[width=130mm,scale=0.5,]{routing.png}
+\end{center}
+
+Az alkalmazás indításakor minden esetben a gyökér elérési útvonalhoz tartozó oldal modulja jelenik meg. Ez a ClouDocs alkalmazásban a HomePageModul. A különböző útvonalakhoz rendelhetünk akár úgynevezett „guardokat” is, melyek megakadályozzák az illetéktelenek hozzáférését bizonyos oldalahoz. Ebben az alkalmazásban a FilePageModule, a SearchPageModule és a ProfilePageModule van ilyen módon védve. Az AuthGuard osztály definiál egy szabályt, ami „false” értékkel tér vissza, ha a lokális tárhelyben nem talál bejelentkezett felhasználót, így megtagadva a nem-bejelentkezett személytől ezen oldalak megtekintését.
+
+\begin{center}
+	\includegraphics[width=40mm,scale=0.5,]{sidebar.png}
+\end{center}
+
+
+A ClouDocs-ban a navigálást a minden oldalon megjelenő SidebarComponent oldalsó navigációs menüvel valósíthatja meg a felhasználó. Ennek tartalma dinamikusan változik a be- és kijelentkezés során. Ezzel is elősegítve a privát oldalak védelmét. Ebben az alkalmazásban nincsenek összetett url címek. Egyedül egy másik felhasználó profiljának megtekintésekor jön létre egy egyszeresen összetett elérési útvonal, ahol „/users” után a megtekintett felhasználó saját id-ja szerepe. Ennek az útvonalnak a segítségével tudja az alkalmazás a megfelelő felhasználói adatokat betölteni.
 
 
 \end{document}
